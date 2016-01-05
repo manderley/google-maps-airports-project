@@ -1,14 +1,14 @@
 var map;
 
-var defaultLat = 40.6413111;
-var defaultLng = -73.77813909;
+var defaultLat = 39.0919981;
+var defaultLng = -94.8593127;
 
 var infoWindow = new google.maps.InfoWindow();
 
 function loadMap() {
 	
 	var mapOptions = {
-		zoom: 11,
+		zoom: 5,
 		center: new google.maps.LatLng(defaultLat, defaultLng),
 		styles: appleStyle
 	};
