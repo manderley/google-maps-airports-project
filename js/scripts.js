@@ -30,11 +30,25 @@ function loadMap() {
 		// Total flights
 		airport.totalflights = (airport.aop + airport.dop);
 
-		// Set icon colour
-		airport.icon = 'green';
+		// Set icon size according to total number of flights
+		if (airport.totalflights > 10000) {
+			airport.iconsize = new google.maps.Size(48,48);
+		} else if ((airport.totalflights >= 1000) && (airport.totalflights <=10000)) {
+			airport.iconsize = new google.maps.Size(32,32);
+		} else {
+			airport.iconsize = new google.maps.Size(16,16);
+		}
 
-		// Set icon size
-		airport.iconsize = new google.maps.Size(32,32);
+		// Set icon colour according to airport performance
+		if (airport.totalper >= 80) {
+			airport.icon = 'green';
+		} else if ((airport.totalper >= 70) && (airport.totalper < 80)) {
+			airport.icon = 'yellow';
+		} else if ((airport.totalper >= 60) && (airport.totalper < 70)) {
+			airport.icon = 'orange';
+		} else {
+			airport.icon = 'red';
+		}
 
 		var newMarker = this.addMarker(airport);
 		
@@ -50,11 +64,11 @@ function addMarker(airport) {
 		position: new google.maps.LatLng(airport.lat, airport.lng),
 		map: map,
 		icon: {
-			url: 'img/airplane-green.png',
-			size: new google.maps.Size(32,32),
+			url: 'img/airplane-' + airport.icon + '.png',
+			size: airport.iconsize,
 			origin: new google.maps.Point(0,0),
 			anchor: new google.maps.Point(16,32),
-			scaledSize: new google.maps.Size(32,32)
+			scaledSize: airport.iconsize
 		},
 		title: airport.airport
 	});
