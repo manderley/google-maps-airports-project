@@ -17,16 +17,18 @@ function loadMap() {
 	// Create the map
 	map = new google.maps.Map(mapid, mapOptions);
 
-	// Marker creation
-	var newMarker = this.addMarker();
-
-	addInfoWindow(newMarker);
+	// Create marker for each airport
+	for (var i = 0; i < airportData.length; i++) {
+		var airport = airportData[i];
+		var newMarker = this.addMarker(airport);
+		addInfoWindow(newMarker);
+	}
 
 }
 
-function addMarker() {
+function addMarker(airport) {
 	var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(defaultLat, defaultLng),
+		position: new google.maps.LatLng(airport.lat, airport.lng),
 		map: map,
 		icon: {
 			url: 'img/airplane-green.png',
@@ -35,7 +37,7 @@ function addMarker() {
 			anchor: new google.maps.Point(16,32),
 			scaledSize: new google.maps.Size(32,32)
 		},
-		title: 'NEW YORK NY (JFK)'
+		title: airport.airport
 	});
 	return marker;
 }
