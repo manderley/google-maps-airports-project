@@ -3,6 +3,8 @@ var map;
 var defaultLat = 40.6413111;
 var defaultLng = -73.77813909;
 
+var infoWindow = new google.maps.InfoWindow();
+
 function loadMap() {
 	
 	var mapOptions = {
@@ -79,14 +81,9 @@ function addInfoWindow(marker) {
 		'</div>' +
 		'</div>';
 
-	var infoWindow = new google.maps.InfoWindow({
-		content: contentString,
-		disableAutoPan: false,
-		maxWidth: 300,
-		zIndex: 1
-	});
-
 	google.maps.event.addListener(marker, 'click', function(e) {
+		infoWindow.close();
+		infoWindow.setContent(contentString);
 		infoWindow.open(map, marker);
 	})
 }
@@ -94,5 +91,6 @@ function addInfoWindow(marker) {
 function addCommasToNumber(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
 // Load the map
 google.maps.event.addDomListener(window, 'load', loadMap());
